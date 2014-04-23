@@ -1,0 +1,148 @@
+ <!DOCTYPE html>
+<html>
+  <head>
+    <title>Twilio prototyping</title>
+        <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    	<link rel="stylesheet" type="text/css" media="screen" href="/static/bootstrap/css/bootstrap-select.css">
+        <script type="text/javascript" src="//static.twilio.com/libs/twiliojs/1.1/twilio.min.js"></script>
+            <script type="text/javascript"
+      src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js">
+    </script>	
+    	
+    <script type="text/javascript">
+
+
+
+      Twilio.Device.setup("{{ token }}");
+ 
+      Twilio.Device.ready(function (device) {
+        $("#log").text("Ready");
+ 
+      });
+ 
+      Twilio.Device.error(function (error) {
+        $("#log").text("Error: " + error.message);
+      });
+ 
+      Twilio.Device.connect(function (conn) {
+        $("#log").text("Successfully established call") + conn;
+      });
+ 
+      Twilio.Device.disconnect(function (conn) {
+        $("#log").text("Call ended");
+      });
+ 
+      Twilio.Device.incoming(function (conn) {
+        $("#log").text("Incoming connection from " + conn.parameters.From);
+        // accept the incoming connection and start two-way audio
+        conn.accept();
+      });
+ 
+      function speak() {
+      	
+        var dialogue = $("#dialogue").val();
+       // var number = $("#number").val();
+        var voice = $("#voice").val();
+        var language = $("#language").val();
+        //alert(language)
+        //alert(dialogue)
+        //$('#submit').attr('disabled', 'disabled');
+ 
+        Twilio.Device.connect({ "dialogue" : dialogue, "voice" : voice, "language" : language, "action": "speech"});
+ 
+    }
+      function hangup() {
+        Twilio.Device.disconnectAll();
+      }
+      
+	 $(document).ready(function() {
+	  $('.selectpicker').selectpicker();
+	});
+    </script>
+  </head>
+  <body>
+
+
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span4"><br/>
+	    <ul class="nav nav-list">
+		    <li><a href="/voiceclient"><i class="icon-volume-down"></i>Make a browser phone call</a></li>
+		    <li><a href="/smsclient"><i class="icon-envelope"></i>Send a SMS</a></li>
+		    <li class="active"><a href="/speechclient"><i class="icon-play icon-white"></i>Get Twilio to speak to caller</a></li>
+		 <li><a href="/broadcastclient"><i class="icon-bullhorn"></i>Broadcast message</a></li>
+		 <!--
+		 <li><a href="/SMSreply"><i class=" icon-info-sign"></i>Personalized SMS reply</a></li>
+		 -->
+		 </ul>
+
+    </div>
+  
+    <div class="span6">
+<div class="row-fluid">
+  <div class="span6">
+    <h3>TTS message back to caller</h3>
+  </div>
+</div>    
+<!--  
+<div class="row">  
+
+    <div class="span4"> <br/>
+    <input type="text" id="number" name="number" placeholder="Enter a phone number to call"/>
+    </div>
+   
+</div>
+ -->
+<div class="row-fluid">
+	<div class="span6">Testing out TwilioML capabilities </div>
+</div>
+<div class="row-fluid">    
+    <div class="span6"> <br/>
+    <input type="text" id="dialogue"  name="dialogue" placeholder="enter text"/>
+    </div>
+</div>
+<div class="row-fluid">
+
+  <select class="selectpicker show-tick span2"  data-style="btn-info" id="voice">
+     <option>Woman</option>
+      <option>Man</option>
+  </select>
+
+  <select class="selectpicker show-tick span2"  data-style="btn-info" id="language">
+     <option>English</option>
+      <option>French</option>
+  </select>
+
+</div>
+<br>
+  <div class="row-fluid">
+      <div class="span2"><button class="btn btn-large btn btn-primary" onclick="speak();">Speak</button></div>
+
+  </div>
+
+
+  <div class="row-fluid">
+    <div class="span4" id="log">Loading pigeons...</div>
+  </div> 
+    </div>
+  </div>
+</div>
+  	<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-select.js"></script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-41669768-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+ 
+  </body>
+</html>

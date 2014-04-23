@@ -1,0 +1,59 @@
+ <!DOCTYPE html>
+<html>
+  <head>
+    <title>Twilio - ePACT</title>
+    	<link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    	<!--
+        <script type="text/javascript" src="//static.twilio.com/libs/twiliojs/1.1/twilio.min.js"></script>
+        -->
+            <script type="text/javascript"
+      src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js">
+    </script>	
+  
+  </head>
+  <body>
+
+
+
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span4"><br/>
+		<ul class="nav nav-list">
+		  <li><a href="/voiceclient"><i class="icon-volume-down"></i>Make a voice call</a></li>
+		  <li><a href="/smsclient"><i class="icon-envelope"></i>Send a SMS</a></li>
+		<li><a href="/speechclient"><i class="icon-play"></i>Get Twilio to speak to caller</a></li>
+		<li><a href="/broadcastclient"><i class="icon-bullhorn"></i>Broadcast message</a></li>
+		<li class="active"><a href="/SMSreply"><i class="icon-info-sign"></i>Personalized SMS reply</a></li>
+		</ul>
+    </div>
+    <div class="span6">
+	    <div class="row-fluid">
+		    <div class="span6">
+			    <h3>Personalized SMS reply</h3>
+			</div>
+		</div>    
+	    <div class="row-fluid">
+		    <div class="span3">send SMS to +17788002755</div>
+			</div>
+	    <div class="row-fluid">
+		    <div class="span3">if you're KKT, Chris or DR, you'll get a personalized reply, if not simply 'Crazy Monkey'</div>
+			</div>			
+		</div> 
+	</div>
+</div>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-41669768-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </body>
+</html>

@@ -1,0 +1,107 @@
+ <!DOCTYPE html>
+<html>
+  <head>
+    <title>Twilio prototyping</title>
+    	<link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <script type="text/javascript" src="//static.twilio.com/libs/twiliojs/1.1/twilio.min.js"></script>
+            <script type="text/javascript"
+      src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js">
+    </script>	
+    	
+    <script type="text/javascript">
+ 
+      Twilio.Device.setup("{{ token }}");
+ 
+      Twilio.Device.ready(function (device) {
+        $("#log").text("Ready");
+      });
+ 
+      Twilio.Device.error(function (error) {
+        $("#log").text("Error: " + str(error.message));
+      });
+ 
+      Twilio.Device.connect(function (conn) {
+        $("#log").text("Successfully established call");
+      });
+ 
+      Twilio.Device.disconnect(function (conn) {
+        $("#log").text("Call ended");
+      });
+ 
+      Twilio.Device.incoming(function (conn) {
+        $("#log").text("Incoming connection from " + conn.parameters.From);
+        // accept the incoming connection and start two-way audio
+        conn.accept();
+      });
+ 
+      function call() {
+         // get the phone number to connect the call to
+        params = {"phone": $("#phone").val(), "action": "voice"};
+        Twilio.Device.connect(params);
+      }
+       function hangup() {
+        Twilio.Device.disconnectAll();
+      }
+    </script>
+  </head>
+  <body>
+
+
+
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span4"><br/>
+<ul class="nav nav-list">
+  <li class="active"><a href="/voiceclient"><i class="icon-volume-down icon-white"></i>Make a browser phone call</a></li>
+  <li><a href="/smsclient"><i class="icon-envelope"></i>Send a SMS</a></li>
+<li><a href="/speechclient"><i class="icon-play"></i>Get Twilio to speak to caller</a></li>
+<li><a href="/broadcastclient"><i class="icon-bullhorn"></i>Broadcast message</a></li>
+<!--
+<li><a href="/SMSreply"><i class=" icon-info-sign"></i>Personalized SMS reply</a></li>
+-->
+</ul>
+    </div>
+    <div class="span6">
+<div class="row-fluid">
+  <div class="span8">
+    <h3>Make a browser phone call</h3>
+  </div>
+</div>    
+<div class="row-fluid">    
+    <div class="span8">This is similar to a Skype out call (from web browser out to phone). </br>Follow format: +1[10digits], e.g. +17787886939 
+
+    </div>
+</div>
+<div class="row-fluid">    
+    <div class="span8">
+    <br/>
+    <input type="text" id="phone" name="phone" placeholder="Enter a phone number to call"/>
+    </div>
+</div>
+  <div class="row-fluid">
+      <div class="span2"><button class="btn btn-large btn btn-primary" onclick="call();">Call</button></div>
+      <div class="span2"><button class="btn btn-large btn btn-primary" onclick="hangup();">Hangup</button></div>
+  </div>
+  <div class="row-fluid">
+    <div class="span4" id="log">Loading pigeons...</div>
+  </div> 
+    </div>
+  </div>
+</div>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-41669768-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script> 
+ 
+  </body>
+</html>

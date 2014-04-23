@@ -1,0 +1,138 @@
+ <!DOCTYPE html>
+<html>
+  <head>
+    <title>Twilio prototyping</title>
+    	<link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+       <!--
+        <script type="text/javascript" src="//static.twilio.com/libs/twiliojs/1.1/twilio.min.js"></script>
+        -->
+            <script type="text/javascript"
+      src="/static/bootstrap/js/jquery.min.js">
+      </script>	
+
+    <script type="text/javascript">
+ /*      Twilio.Device.setup("{{ token }}");
+ 
+      Twilio.Device.ready(function (device) {
+        $("#log").text("Ready");
+      });
+ 
+      Twilio.Device.error(function (error) {
+        $("#log").text("Error: " + error.message);
+      });
+ 
+      Twilio.Device.connect(function (conn) {
+        $("#log").text("Successfully established call to" + conn.parameters.To);
+      });
+ 
+      Twilio.Device.disconnect(function (conn) {
+        $("#log").text("Call ended");
+      });
+ 
+      Twilio.Device.incoming(function (conn) {
+        $("#log").text("Incoming connection from " + conn.parameters.From);
+        // accept the incoming connection and start two-way audio
+        conn.accept();
+      });
+ */
+
+	 
+      $(document).ready(function() {
+		  $("#sendSMSForm").submit(function() {	
+		  		toVal        		= encodeURIComponent(escape($("#phone").val())); 
+		  		bodyVal        		= escape($("#body").val()); 
+		  		$.ajax({
+		      		url: '/sendsms',
+		      		data: 'phone=' + toVal +'&body=' + bodyVal,
+		      		success: function(msg) {
+			      				$('#log').text(msg['message']);
+			      				console.log(msg);
+			      			},
+		            error: function(msg){
+			            	console.log(msg);
+		            		}
+		           });
+		        $('#log').text('Processing....');
+
+		        return false;
+		   });
+		 });
+
+
+/*
+ function processJson(data) { 
+    // 'data' is the json object returned from the server 
+    $('#log').text(data.message); 
+}    
+*/ 
+
+    </script>
+  </head>
+  <body>
+
+
+
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span4"><br/>
+<ul class="nav nav-list">
+  <li><a href="/voiceclient"><i class="icon-volume-down"></i>Make a browser phone call</a></li>
+  <li class="active"><a href="/smsclient"><i class="icon-envelope icon-white"></i>Send a SMS</a></li>
+<li><a href="/speechclient"><i class="icon-play"></i>Get Twilio to speak to caller</a></li>
+<li><a href="/broadcastclient"><i class="icon-bullhorn"></i>Broadcast message</a></li>
+<!--
+<li><a href="/SMSreply"><i class=" icon-info-sign"></i>Personalized SMS reply</a></li>
+-->
+</ul>
+    </div>
+    <div class="span8">
+<div class="row-fluid">
+  <div class="span8">
+    <h3>Send SMS</h3>
+  </div>
+</div>    
+
+
+<form id="sendSMSForm" method=get>
+<div class="row-fluid">
+	<div class="span6">follow format: +1[10digits], e.g. +17787886939 </div>
+</div>
+<div class="row-fluid">    
+    <div class="span3"><br/>
+    <input type="text" id="phone" name="phone" placeholder="Enter a phone number to SMS"/>
+    </div>
+    <div class="span4"> <br/>
+        <input type="text" id="body" name="body" placeholder="Enter a message"/>
+    </div>
+</div>
+  <div class="row-fluid">
+      <div class="span3"><input type=submit class="btn btn-large btn-primary" id="sendSMS" name="sendSMS" value="Send SMS"/></div>
+  </div>
+  <div class="row-fluid">
+    <div class="span4" id="log" name="log">Ready.</div>
+  </div>
+    </div>
+  </div>
+</div>
+</form>
+
+
+
+
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+ <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-41669768-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+ 
+  </body>
+</html>
